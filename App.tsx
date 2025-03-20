@@ -1,131 +1,41 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import {I18nManager, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {RangeSlider} from '@react-native-assets/slider';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+I18nManager.forceRTL(true);
+I18nManager.allowRTL(true);
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+export default function App() {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  /*
-   * To keep the template simple and small we're adding padding to prevent view
-   * from rendering under the System UI.
-   * For bigger apps the reccomendation is to use `react-native-safe-area-context`:
-   * https://github.com/AppAndFlow/react-native-safe-area-context
-   *
-   * You can read more about it here:
-   * https://github.com/react-native-community/discussions-and-proposals/discussions/827
-   */
-  const safePadding = '5%';
-
-  return (
-    <View style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+    <View style={{width: 300, alignSelf: 'center', flex: 1, paddingTop: 200}}>
+      <RangeSlider
+        range={[0, 100]} // set the current slider's value
+        step={0} // The step for the slider (0 means that the slider will handle any decimal value within the range [min, max])
+        minimumRange={0} // Minimum range between the two thumbs (defaults as "step")
+        minimumValue={0} // Minimum value (defaults as 0)
+        maximumValue={100} // Maximum value (defaults as minimumValue + minimumRange)
+        crossingAllowed={false} // If true, the user can make one thumb cross over the second thumb
+        outboundColor="grey" // The track color outside the current range value
+        inboundColor="grey" // The track color inside the current range value
+        thumbTintColor="darkcyan" // The color of the slider's thumb
+        thumbStyle={undefined} // Override the thumb's style
+        trackStyle={undefined} // Override the tracks' style
+        minTrackStyle={undefined} // Override the tracks' style for the minimum range
+        midTrackStyle={undefined} // Override the tracks' style for the middle range
+        maxTrackStyle={undefined} // Override the tracks' style for the maximum range
+        vertical={false} // If true, the slider will be drawn vertically
+        inverted={false} // If true, min value will be on the right, and max on the left
+        enabled={true} // If false, the slider won't respond to touches anymore
+        trackHeight={4} // The track's height in pixel
+        thumbSize={15} // The thumb's size in pixel
+        thumbImage={undefined} // An image that would represent the thumb
+        slideOnTap={true} // If true, touching the slider will update it's value. No need to slide the thumb.
+        onValueChange={undefined} // Called each time the value changed. Return false to prevent the value from being updated. The type is (range: [number, number]) => boolean | void
+        onSlidingStart={undefined} // Called when the slider is pressed. The type is (range: [number, number]) => void
+        onSlidingComplete={undefined} // Called when the press is released. The type is (range: [number, number]) => void
+        CustomThumb={undefined} // Provide your own component to render the thumb. The type is a component: ({ value: number, thumb: 'min' | 'max' }) => JSX.Element
+        CustomMark={undefined} // Provide your own component to render the marks. The type is a component: ({ value: number; active: boolean }) => JSX.Element ; value indicates the value represented by the mark, while active indicates wether a thumb is currently standing on the mark
       />
-      <ScrollView
-        style={backgroundStyle}>
-        <View style={{paddingRight: safePadding}}>
-          <Header/>
-        </View>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            paddingHorizontal: safePadding,
-            paddingBottom: safePadding,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
